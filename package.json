@@ -1,0 +1,23 @@
+{
+  "name": "astro",
+  "version": "1.0.0",
+  "description": "Astro Database API\r Desarrollar una API REST que permita interactuar con una base de datos de cartas astrológicas.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/typescript": "^2.0.0",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "jsonfile": "^6.1.0"
+  }
+}
