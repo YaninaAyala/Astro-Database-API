@@ -21,12 +21,25 @@ class UserController {
       return response.status(400).json({ error: result.error });
     const user = request.body;
     db.users.push(user);
-    writeFileSync("./src/database/db.json", db.users);
+    writeFileSync("./src/database/users.json", db.users);
 
     response.status(200).json({ message: "Creado exitosamente" });
   }
 
-  deleteById(request: Request, response: Response) {}
+  deleteById(request: Request, response: Response) {
+    const result = validator(request.body.id);
+    if (!result.success)
+      return response.status(400).json({ error: result.error });
+    const id = request.body.id;
+    const userId = db.users.filter((user) => id != user.id);
+
+    db.users = userId;
+    writeFileSync("./src/database/user.json", db);
+
+    response
+      .status(200)
+      .json({ message: "Se elimino el usuario exitosamente!!!" });
+  }
   updateById(request: Request, response: Response) {}
 }
 

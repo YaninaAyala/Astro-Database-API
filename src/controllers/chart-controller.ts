@@ -25,7 +25,7 @@ class ChartController {
       return response.status(400).json({ error: result.error });
     const chart = request.body;
     db.charts.push(chart);
-    writeFileSync("./src/database/db.json", db.charts);
+    writeFileSync("./src/database/natal-charts.json", db.charts);
 
     response.status(200).json({ message: "Creado exitosamente" });
   }
