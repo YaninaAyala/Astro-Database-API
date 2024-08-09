@@ -7,15 +7,15 @@ const usersSchema = z.object({
       required_error: "El nombre es requerido",
     })
     .min(3, { message: "El nombre tiene que tener como MÍNIMO 3 caracteres" })
-    .max(255, {
-      message: "La descripción tiene que tener como MÁXIMO 255 caracteres",
+    .max(25, {
+      message: "El nombre tiene que tener como MÁXIMO 25 caracteres",
     }),
   email: z
     .string({ required_error: "La propiedad email es obligatoria" })
     .email(),
 });
 
-export function validator(data){
+export function usersValidator(data){
   return usersSchema.safeParse(data)
 
 }

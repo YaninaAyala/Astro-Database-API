@@ -1,45 +1,33 @@
 //CONTROLLERS
 //Tiene los controladores de user y chart. Son los encargados de manejar las Request/Response, de interactuar con los modelos, y de realizar chequeos.
-import { Response } from "express";
-import { Request } from "express";
+import { Response, Request } from "express";
 import userModel from "../models/user-model";
-import { validator } from "../schemas/users";
+import { usersValidator } from "../schemas/users";
 import { writeFileSync } from "jsonfile";
-import db from "../database/users.json";
 
 class UserController {
   constructor() {}
 
-  getById(request: Request, response: Response) {
-    const db = userModel.getData();
-    const user = db.users.find((user) => request.params.id == user.id);
-    response.status(200).json({ message: user });
-  }
+   getById(request: Request, response: Response) {
+  //   const db = userModel.getData();
+  //   const user = db.users.find((user) => user.id == request.params.id );
+  //   response.status(200).json({ message: user });
+   }
   create(request: Request, response: Response) {
-    const result = validator(request.body);
-    if (!result.success)
-      return response.status(400).json({ error: result.error });
+    const db = userModel.getData();
+    const result = usersValidator(request.body);
+    console.log(result);
+    
+    if (!result.success) response.status(400).json({ error: result.error });
     const user = request.body;
-    db.users.push(user);
-    writeFileSync("./src/database/users.json", db.users);
+    console.log(db);
+    //db.users.push(user);
+    //writeFileSync("./src/database/users.json", db.users);
 
     response.status(200).json({ message: "Creado exitosamente" });
   }
 
-  deleteById(request: Request, response: Response) {
-    const result = validator(request.body.id);
-    if (!result.success)
-      return response.status(400).json({ error: result.error });
-    const id = request.body.id;
-    const userId = db.users.filter((user) => id != user.id);
 
-    db.users = userId;
-    writeFileSync("./src/database/user.json", db);
-
-    response
-      .status(200)
-      .json({ message: "Se elimino el usuario exitosamente!!!" });
-  }
   updateById(request: Request, response: Response) {}
 }
 

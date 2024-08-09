@@ -76,6 +76,6 @@ const chartsSchema = z.object({
     .max(360, { message: "La propiedad tiene como maximo 360" }),
 });
 
-export function validator(data) {
+export function chartsValidator(data) {
   return chartsSchema.safeParse(data);
 }

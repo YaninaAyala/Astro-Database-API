@@ -3,7 +3,7 @@
 import { Response } from "express";
 import { Request } from "express";
 import chartModel from "../models/chart-model";
-import { validator } from "../schemas/users";
+import { chartsValidator } from "../schemas/charts";
 import { writeFileSync } from "jsonfile";
 import db from "../database/natal-charts.json"
 
@@ -20,7 +20,7 @@ class ChartController {
     response.status(200).json({ message: chart });
   }
   create(request: Request, response: Response) {
-    const result = validator(request.body);
+    const result = chartsValidator(request.body);
     if (!result.success)
       return response.status(400).json({ error: result.error });
     const chart = request.body;

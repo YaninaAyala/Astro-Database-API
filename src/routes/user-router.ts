@@ -13,7 +13,9 @@ usersRouter.get("/:id", (request, response) => {
     userController.getById(request, response)
 });
 
-usersRouter.post("/", (request, response) => {});
+usersRouter.post("/", (request, response) => {
+    userController.create(request, response)
+});
 usersRouter.patch("/id", (request, response) => {});
 usersRouter.delete("/id", (request, response) => {});
 
