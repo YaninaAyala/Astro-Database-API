@@ -5,21 +5,21 @@ import { Request } from "express";
 import chartModel from "../models/chart-model";
 import { chartsValidator } from "../schemas/charts";
 import { writeFileSync } from "jsonfile";
-import db from "../database/natal-charts.json"
+import db from "../database/natal-charts.json";
 
 class ChartController {
   constructor() {}
-  getAll(request: Request, response: Response) {
+  static getAll(request: Request, response: Response) {
     const db = chartModel.getData();
     response.status(200).json(db.charts);
   }
 
-  getById(request: Request, response: Response) {
+  static getById(request: Request, response: Response) {
     const db = chartModel.getData();
     const chart = db.charts.find((chart) => request.params.id == chart.id);
     response.status(200).json({ message: chart });
   }
-  create(request: Request, response: Response) {
+  static create(request: Request, response: Response) {
     const result = chartsValidator(request.body);
     if (!result.success)
       return response.status(400).json({ error: result.error });
@@ -29,10 +29,8 @@ class ChartController {
 
     response.status(200).json({ message: "Creado exitosamente" });
   }
-  deleteById(request: Request, response: Response) {}
-  updateById(request: Request, response: Response) {}
+  static deleteById(request: Request, response: Response) {}
+  static updateById(request: Request, response: Response) {}
 }
 
-const chartController = new ChartController();
-
-export default chartController;
+export default ChartController;

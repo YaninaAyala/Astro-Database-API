@@ -1,18 +1,25 @@
 import express, { json } from "express";
 
 import indexRouter from "./routes";
-
+import usersDb from "./database/users.json";
+import chartsDb from "./database/natal-charts.json";
 const PORT = 8080;
 export const app = express();
 
 app.use(json());
 
-
-app.get("/", (request: any, response) => {
-  response.status(200).json({ message: "soy la raíz" });
+indexRouter.get("/", (request: any, response) => {
+  console.log(usersDb, chartsDb);
+  const userInfo = usersDb.info;
+  const chartsInfo = chartsDb.info;
+  const description = {
+    userInfo,
+    chartsInfo,
+  };
+  response.status(200).json(description);
 });
 
-app.use("/api", indexRouter );
+app.use("/api", indexRouter);
 
 app.listen(PORT, () => {
   console.log("Server listening on port:", PORT);
