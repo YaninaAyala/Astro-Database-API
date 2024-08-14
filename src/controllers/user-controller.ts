@@ -10,9 +10,10 @@ class UserController {
   constructor() {}
 
   static getById(request: Request, response: Response) {
-    //   const db = userModel.getData();
-    //   const user = db.users.find((user) => user.id == request.params.id );
-    //   response.status(200).json({ message: user });
+      const db = UserModel.getData();
+      const user = db.users.find((user) => user.id == request.params.id );
+      if(!user) {return response.status(404).json({message: "Usuario no encontrado"})}
+      response.status(200).json({ message: user });
   }
   static create(request: Request, response: Response) {
     const db = UserModel.getData();
@@ -27,7 +28,7 @@ class UserController {
     return user.id;
   }
 
-  static updateById(request: Request, response: Response) {}
+  static updateById(request: Request, response: Response) {} //HACER
   static getByEmail(request: Request, response: Response) {
     const db = UserModel.getData();
     const user = db.users.find((user) => user.email == request.body.email);
